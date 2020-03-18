@@ -813,7 +813,9 @@ public class OpenfireConnection extends AbstractXMPPConnection implements Roster
     // -------------------------------------------------------
 
     public boolean joinRoom(String mGroupChatName, String mNickName) {
-        Log.debug("joinRoom " + mGroupChatName + " " + mNickName);
+
+        String resource = mNickName + "@" + domain;
+        Log.debug("joinRoom " + mGroupChatName + " " + resource);
 
         try {
             MultiUserChat mMultiUserChat = groupchats.get(mGroupChatName);
@@ -825,7 +827,7 @@ public class OpenfireConnection extends AbstractXMPPConnection implements Roster
                 groupchats.put(mGroupChatName, mMultiUserChat);
             }
 
-            mMultiUserChat.join(Resourcepart.from(mNickName));
+            mMultiUserChat.join(Resourcepart.from(resource));
             return true;
 
         } catch (Exception e) {
